@@ -870,12 +870,16 @@ export default function App() {
       const catVaccinesList = catVaccines.filter(v => v.cat_id === cat.id);
       const catMedLogs = logs.filter(l => l.cat_id === cat.id);
       const catBathLogs = bathLogs.filter(b => b.cat_id === cat.id);
+      const catCareLogs = careLogs.filter(c => c.cat_id === cat.id);
+      const catVetVisits = vetVisits.filter(v => v.cat_id === cat.id);
 
       const dates = [
         ...catWeights.map(r => r.date),
         ...catVaccinesList.map(v => v.completed_at || v.start_date),
         ...catMedLogs.map(l => l.created_at),
-        ...catBathLogs.map(b => b.completed_at || b.created_at)
+        ...catBathLogs.map(b => b.completed_at || b.created_at),
+        ...catCareLogs.map(c => c.created_at),
+        ...catVetVisits.map(v => v.completed_date || v.request_date || v.created_at)
       ].filter(Boolean).map(d => new Date(d).getTime());
 
       const lastUpdated = dates.length > 0 ? Math.max(...dates) : 0;
@@ -1409,6 +1413,7 @@ export default function App() {
               onChange={(v: string) => setEditingEmployee(p => ({ ...p, role: v as Role }))}
               options={[
                 { value: 'admin', label: t.admin },
+                { value: 'manager', label: t.manager },
                 { value: 'supervisor', label: t.supervisor },
                 { value: 'staff', label: t.staff }
               ]}
@@ -1494,14 +1499,25 @@ const VetManagementView = ({ vetVisits, cats, employees, user, t, fetchInitialDa
   };
 
   const updateStatus = async (visit: any, status: string) => {
+    const updateData: any = { 
+      ...visit, 
+      status,
+    };
+
+    // If authorizing a pending visit
+    if (visit.status === 'pending' && status === 'in_progress') {
+      updateData.authorized_by = user.id;
+    }
+
+    // If completing a visit
+    if (status === 'completed') {
+      updateData.completed_date = new Date().toISOString().split('T')[0];
+    }
+
     const res = await fetch(`/api/vet-visits/${visit.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        ...visit, 
-        status,
-        completed_date: status === 'completed' ? new Date().toISOString().split('T')[0] : visit.completed_date
-      })
+      body: JSON.stringify(updateData)
     });
     if (res.ok) fetchInitialData();
   };
@@ -3070,7 +3086,7 @@ const CatListView = ({ cats, t, setEditingCat, setIsCatModalOpen, filterBranch, 
               <th className="py-4 px-4 font-bold text-gray-700">{t.status}</th>
               <th className="py-4 px-4 font-bold text-gray-700">{t.age}</th>
               <th className="py-4 px-4 font-bold text-gray-700 cursor-pointer hover:text-indigo-600" onClick={() => toggleSort('lastUpdated' as any)}>
-                <div className="flex items-center gap-2">Last Updated <ArrowUpDown size={14} /></div>
+                <div className="flex items-center gap-2">{t.lastUpdated} <ArrowUpDown size={14} /></div>
               </th>
               <th className="py-4 px-4 font-bold text-gray-700 text-right">{t.actions}</th>
             </tr>
@@ -3932,8 +3948,8 @@ const AdminDashboardView = ({
             <Users size={20} className="text-indigo-600" />
             {t.permissions}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {['admin', 'supervisor', 'staff'].map((role) => (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {['admin', 'manager', 'supervisor', 'staff'].map((role) => (
               <div key={role} className="p-4 border rounded-xl space-y-4">
                 <h3 className="font-bold capitalize text-indigo-600">{role}</h3>
                 <div className="space-y-2">

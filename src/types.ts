@@ -1,4 +1,4 @@
-export type Role = 'admin' | 'supervisor' | 'staff';
+export type Role = 'admin' | 'manager' | 'supervisor' | 'staff';
 export type CatStatus = 'normal' | 'observation' | 'sick' | 'green' | 'yellow' | 'red';
 
 export interface Branch {
@@ -25,13 +25,21 @@ export interface Employee {
 }
 
 export interface RolePermissions {
-  delete_cat: boolean;
-  delete_employee: boolean;
-  manage_settings: boolean;
-  manage_breeds: boolean;
+  view_dashboard: boolean;
+  manage_cats: boolean;
   manage_vaccines: boolean;
   manage_medication: boolean;
+  manage_bath: boolean;
+  manage_weight: boolean;
+  view_employees: boolean;
+  manage_employees: boolean;
+  manage_settings: boolean;
+  manage_breeds: boolean;
+  manage_vet: boolean;
   edit_cat_status: boolean;
+  export_excel: boolean;
+  delete_cat: boolean;
+  delete_employee: boolean;
 }
 
 export interface Cat {

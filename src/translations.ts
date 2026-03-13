@@ -7,6 +7,7 @@ export const translations = {
     branch: "分店",
     role: "角色",
     admin: "管理员",
+    manager: "经理",
     supervisor: "主管",
     staff: "员工",
     dashboard: "主页",
@@ -149,6 +150,7 @@ export const translations = {
     otherCare: "其他",
     addCareRecord: "添加护理记录",
     careHistory: "护理历史",
+    lastUpdated: "最后更新",
     history: "历史记录",
   },
   en: {
@@ -159,6 +161,7 @@ export const translations = {
     branch: "Branch",
     role: "Role",
     admin: "Admin",
+    manager: "Manager",
     supervisor: "Supervisor",
     staff: "Staff",
     dashboard: "Home",
@@ -299,6 +302,7 @@ export const translations = {
     otherCare: "Other",
     addCareRecord: "Add Care Record",
     careHistory: "Care History",
+    lastUpdated: "Last Updated",
     history: "History",
   }
 };
