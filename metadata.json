@@ -1,6 +1,6 @@
 {
-  "name": "Cat Cafe Management System",
-  "description": "A comprehensive multi-branch management system for cat cafes, featuring cat health tracking, employee task management, and administrative controls.",
+  "name": "MeowManager - Care System",
+  "description": "A comprehensive multi-branch management system for cat care, featuring health tracking, employee task management, and administrative controls.",
   "requestFramePermissions": [
     "camera"
   ]

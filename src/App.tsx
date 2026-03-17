@@ -621,7 +621,7 @@ export default function App() {
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Cats");
-    XLSX.writeFile(wb, `MeowManager_Export_${new Date().toISOString().split('T')[0]}.xlsx`);
+    XLSX.writeFile(wb, `MeowManager_Care_Export_${new Date().toISOString().split('T')[0]}.xlsx`);
   };
 
   const handleDownloadTemplate = () => {
@@ -639,7 +639,7 @@ export default function App() {
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Template");
-    XLSX.writeFile(wb, `MeowManager_Cat_Template.xlsx`);
+    XLSX.writeFile(wb, `MeowManager_Care_Cat_Template.xlsx`);
   };
 
   const handleImportCats = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -3571,28 +3571,28 @@ const AdminDashboardView = ({
         <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-6">
           <h2 className="text-lg font-bold flex items-center gap-2">
             <LayoutDashboard size={20} className="text-indigo-600" />
-            System Appearance
+            {t.appearance}
           </h2>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Theme</label>
+              <label className="text-sm font-medium text-gray-700">{t.theme}</label>
               <div className="flex p-1 bg-gray-100 rounded-xl">
                 <button 
                   onClick={() => setTheme('light')}
                   className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${theme === 'light' ? 'bg-white shadow-sm text-indigo-600' : 'text-gray-500'}`}
                 >
-                  Light
+                  {t.light}
                 </button>
                 <button 
                   onClick={() => setTheme('dark')}
                   className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${theme === 'dark' ? 'bg-white shadow-sm text-indigo-600' : 'text-gray-500'}`}
                 >
-                  Dark
+                  {t.dark}
                 </button>
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Language</label>
+              <label className="text-sm font-medium text-gray-700">{t.language}</label>
               <div className="flex p-1 bg-gray-100 rounded-xl">
                 <button 
                   onClick={() => setLang('zh')}

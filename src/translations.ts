@@ -1,6 +1,6 @@
 export const translations = {
   zh: {
-    appName: "喵管家 - 猫咖管理系统",
+    appName: "喵管家 - 护理系统",
     login: "登录",
     username: "用户名",
     password: "密码",
@@ -152,9 +152,14 @@ export const translations = {
     careHistory: "护理历史",
     lastUpdated: "最后更新",
     history: "历史记录",
+    appearance: "外观设置",
+    theme: "主题",
+    light: "浅色",
+    dark: "深色",
+    language: "语言",
   },
   en: {
-    appName: "MeowManager - Cat Cafe System",
+    appName: "MeowManager - Care System",
     login: "Login",
     username: "Username",
     password: "Password",
@@ -304,5 +309,10 @@ export const translations = {
     careHistory: "Care History",
     lastUpdated: "Last Updated",
     history: "History",
+    appearance: "Appearance",
+    theme: "Theme",
+    light: "Light",
+    dark: "Dark",
+    language: "Language",
   }
 };
